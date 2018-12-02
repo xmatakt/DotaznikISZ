@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Dotaznik ISZ</string>
+    <string name="nameHint">Zadajte meno</string>
+    <string name="surnameHint">Zadajte priezvisko</string>
+    <string name="emailHint">Email</string>
+    <string name="nextButtonText">Ďalej</string>
+    <string name="sendEmailButtonText">Odoslať</string>
+</resources>
+
