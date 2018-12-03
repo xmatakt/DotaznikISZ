@@ -14,6 +14,7 @@ import static android.widget.Toast.LENGTH_LONG;
 
 public class EmailActivity extends AppCompatActivity {
 
+    private String email = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,26 +26,20 @@ public class EmailActivity extends AppCompatActivity {
 
     private void PrefillEmailText(Intent intent)
     {
-        EditText emailEditText = findViewById(R.id.emailMessageEditText);
+        EditText emailMessageEditText = findViewById(R.id.emailMessageEditText);
         String name = intent.getStringExtra("name");
         String surname = intent.getStringExtra(MainActivity.SURNAME_KEY);
-        String email = intent.getStringExtra(MainActivity.EMAIL_KEY);
+        email = intent.getStringExtra(MainActivity.EMAIL_KEY);
 
-        emailEditText.setText("Meno: " + name + "\nPriezvisko: " + surname + "\nOdpovede zasielať na: " + email + "\n");
-        emailEditText.setSelection(emailEditText.getText().length());
+        emailMessageEditText.setText("Meno: " + name + "\nPriezvisko: " + surname + "\n");
+        emailMessageEditText.setSelection(emailMessageEditText.getText().length());
     }
 
     public void sendEmailButton_Click(View view)
     {
-        Intent i = new Intent(Intent.ACTION_SEND);
-        i.setType("message/rfc822");
-        i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"motii131@gmail.com"});
-        i.putExtra(Intent.EXTRA_SUBJECT, "subject of email");
-        i.putExtra(Intent.EXTRA_TEXT   , "body of email");
-        try {
-            startActivity(Intent.createChooser(i, "Send mail..."));
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+        if(email != null)
+        {
+            SendEmail();
         }
     }
 
@@ -70,8 +65,8 @@ public class EmailActivity extends AppCompatActivity {
 
                     sender.sendMail("Subjekt emailovej správy",
                             emailEditText.getText().toString(),
-                            "timotej.matak@gmail.com",
-                            "timotej.matak@gmail.com");
+                            "ehealttp4@gmail.com",
+                            email);
                     dialog.dismiss();
                 } catch (javax.mail.AuthenticationFailedException e) {
                     Log.e("mylog", "Error: " + e.getMessage());
